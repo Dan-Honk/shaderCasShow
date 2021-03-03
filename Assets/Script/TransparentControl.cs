@@ -32,7 +32,8 @@ public class TransparentControl : MonoBehaviour
         if (targetObject == null)
             return;
         UpdateTransparentObject();
-
+        UpdateRayCastHit();
+        RemoveUnuseTransparent();
     }
 
     public void UpdateTransparentObject()
@@ -98,7 +99,12 @@ public class TransparentControl : MonoBehaviour
             param = new TransparentParm();
             transparentDic.Add(renderer, param);
             param.shaderMats = renderer.sharedMaterials;
-
-        }    
+            param.materials = renderer.materials;
+            foreach (var v in param.materials)
+            {
+                v.shader = Shader.Find("ApcShader/OcclusionTransparent");
+            }
+        }
+        param.isTransparent = true;
     }
 }
