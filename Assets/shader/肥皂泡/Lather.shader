@@ -47,14 +47,23 @@
             };
 
             sampler2D _MainTex;
+            sampler2D _BumpMap;
             float4 _MainTex_ST;
+            float4 _BumpMap_ST;
+
 
             v2f vert (appdata_tan v)
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv.xy = TRANSFORM_TEX(v.texcoord, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                o.uv.zw = TRANSFORM_TEX(v.texcoord,_BumpMap);
+
+                TANGENT_SPACE_ROTATION;
+                o.TtoV0 = normalize(mul(rotation,UNITY_MATRIX_IT_MV[0].xyz));
+                o.TtoV1 = normalize(mul(rotation,UNITY_MATRIX_IT_MV[1].xyz));
+
+                o.visual = normalize(mul(rotation,-ObjSpaceViewDir(v.vertex)));
                 return o;
             }
 
