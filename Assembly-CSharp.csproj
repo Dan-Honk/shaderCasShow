@@ -58,10 +58,10 @@
      <None Include="Assets\Shader\扫光效果\FlashEffectModel.shader" />
      <None Include="Assets\Shader\遮挡半透\OutLinePostEffect.shader" />
      <None Include="Assets\Shader\扫光效果\DissolveEffectX.shader" />
-     <None Include="Assets\Shader\肥皂泡\Lather.shader" />
      <None Include="Assets\Shader\遮挡半透\XRayEffect.shader" />
      <None Include="Assets\Shader\扫光效果\FlashEffect.shader" />
      <None Include="Assets\Shader\遮挡半透\OcclusionTransparent.shader" />
+     <None Include="Assets\Shader\Bubble\BubbleShader.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/unityProject/shaderCasShow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
