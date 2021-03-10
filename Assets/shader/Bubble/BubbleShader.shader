@@ -93,6 +93,7 @@
                 normal = normalize(normal);
 
                 float v_n_angle = saturate(acos(dot(-i.visual,normal))*2 / 3.14);
+                //模拟肥皂泡厚度流动的变化，使用噪声图控制随机效果
                 float BubbleR = tex2D(_BubbleNoise,i.uv.xy + float2(0,_Time.x)).r;
                 float BubbleG = tex2D(_BubbleNoise,i.uv.xy + float2(BubbleR * 0.5, _Time.x) * 0.9 + 0.05 * _SinTime.x).g;
                 float BubbleB = tex2D(_BubbleNoise,i.uv.xy + float2(BubbleG * 0.5,_Time.x) * 1.1 - 0.05 * _SinTime.y).b;
@@ -114,9 +115,11 @@
                     -1,0,
                     0,-1
                 };
+                //使用旋转矩阵，将反射结果翻转
                 half2 vnsp = mul(rotSpec,vn);
                 fixed4 LightModleSpec = tex2D(_LightModleSpec,vn* 0.495 + 0.505);
                 fixed4 LightModleSpec2 = tex2D(_LightModleSpec,vnsp * 0.495 + 0.505);
+                //进行混合计算
                 LightModleSpec.rgb = lum(saturate((LightModleSpec + LightModleSpec2)*0.5).rgb) * (LightModleSpec.rgb +LightModleSpec2.rgb)*0.5;
 
                 LightModleSpec.a = 1;
@@ -125,8 +128,9 @@
 
                 fixed4 finalColor = clamp(diff + LightModleSpec * _SpecValue,0,1) * lerp(fixed4(1,1,1,1),Bubble * 1.5,_BubbleValue);
 
+                //菲涅尔
                 float fresnel = saturate(pow(v_n_angle,1.6));
-
+                //进行菲涅尔高光混合
                 finalColor.a = saturate(fresnel * 0.2 + 0.8 * (fresnel + 0.1) * lum(LightModleSpec.rgb * _SpecValue + 0.1) + 0.05);
 
                 return finalColor;
