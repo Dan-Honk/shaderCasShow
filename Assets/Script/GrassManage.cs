@@ -54,5 +54,37 @@ public class GrassManage : MonoBehaviour
         grassComputeBuffer = new ComputeBuffer(maxCount, 16);
         argsComputeBuffer = new ComputeBuffer(1, args.Length * sizeof(uint), ComputeBufferType.IndirectArguments);
 
+        args[0] = GrassMesh.GetIndexCount(0);
+        args[1] = 0;
+        args[2] = GrassMesh.GetIndexStart(0);
+        args[3] = GrassMesh.GetBaseVertex(0);
+    }
+
+    void fillGrass()
+    {
+        grassArr = new GrassInfo[grassCount];
+        float half = fillRange / 2;
+        int i = grassCount - 1;
+        int maxCount = grassCount * 2;
+        while(i > 0 &&maxCount > 0)
+        {
+            Vector3 p = new Vector3();
+            p.x = Random.Range(-half, half);
+            p.y = SendHeight;
+            p.z = Random.Range(-half, half);
+            p += GrassCenter;
+            if(GetGround(ref p))
+            {
+                grassArr[i].position = new Vector4(p.x, p.y, p.z, Random.Range(.5f, 1f));
+                i--;
+            }
+            maxCount++;
+        }
+        //
+    }
+
+    bool GetGround(ref Vector3 p)
+    {
+        return false;
     }
 }
