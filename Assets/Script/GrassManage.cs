@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GrassManage : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class GrassManage : MonoBehaviour
         args[3] = GrassMesh.GetBaseVertex(0);
     }
 
-    void fillGrass()
+    void FillGrass()
     {
         grassArr = new GrassInfo[grassCount];
         float half = fillRange / 2;
@@ -81,10 +82,43 @@ public class GrassManage : MonoBehaviour
             maxCount++;
         }
         //
+        grassComputeBuffer.SetData(grassArr);
+        GrassMaterial.SetBuffer("positionBuffer", grassComputeBuffer);
+        args[1] = (uint)grassCount;
+        argsComputeBuffer.SetData(args);
     }
 
     bool GetGround(ref Vector3 p)
     {
+        Ray ray = new Ray(p, Vector3.down);
+        RaycastHit hit;
+        if(Physics.Raycast(ray,out hit,p.y + 10))
+        {
+            p = hit.point;
+            return true;
+        }
         return false;
+    }
+
+    private void Update()
+    {
+        DrawGrass();
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            FillGrass();
+        }
+    }
+
+    void DrawGrass()
+    {
+        if (GrassMesh == null || GrassMaterial == null)
+            return;
+        //if(stamp != null)
+        //{
+        //GrassMaterial.SetVector("_StampVector", new Vector4(stamp.Center.x, stampMin, stamp.Center.z, stamp.Size));
+        //}   
+        
+        Graphics.DrawMeshInstancedIndirect(GrassMesh, 0, GrassMaterial, drawBounds, argsComputeBuffer, 0,
+            mpb, ShadowCastingMode.Off, true, 0, _camera);
     }
 }
