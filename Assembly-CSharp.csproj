@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\GrassManage.cs" />
+    <Compile Include="Assets\Script\Stamp.cs" />
     <Compile Include="Assets\Script\TransparentControl.cs" />
     <None Include="Assets\Shader\顶点动画\VerAnim.shader" />
     <None Include="Assets\Shader\扫光效果\FlashEffectModel.shader" />

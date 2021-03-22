@@ -29,8 +29,8 @@ public class GrassManage : MonoBehaviour
     [Header("中心偏移")]
     public Vector3 GrassCenter;
 
-    //[Header("脚印")]
-    //public Stamp stamp;
+    [Header("脚印")]
+    public Stamp stamp;
 
     [Header("压低程度")]
     [Range(0, 1)]
@@ -113,10 +113,10 @@ public class GrassManage : MonoBehaviour
     {
         if (GrassMesh == null || GrassMaterial == null)
             return;
-        //if(stamp != null)
-        //{
-        //GrassMaterial.SetVector("_StampVector", new Vector4(stamp.Center.x, stampMin, stamp.Center.z, stamp.Size));
-        //}   
+        if(stamp != null)
+        {
+            GrassMaterial.SetVector("_StampVector", new Vector4(stamp.Center.x, stampMin, stamp.Center.z, stamp.Size));
+        }   
         
         Graphics.DrawMeshInstancedIndirect(GrassMesh, 0, GrassMaterial, drawBounds, argsComputeBuffer, 0,
             mpb, ShadowCastingMode.Off, true, 0, _camera);
