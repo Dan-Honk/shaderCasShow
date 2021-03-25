@@ -2,12 +2,21 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _ProjectionEdge("ProjectionEdge",Range(0,10)) = 4
+        _ProjectionLength("ProjectionLength",Range(0,100)) = 10
+        _ProjectionFadeOut("Fadeout distance",float)= 5
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" "Queue" = "Transparent" }
         LOD 100
+        CGINCLUDE
+        #pragma vertex vert
+        #pragma fragemt lfrag
+        #include "UnityCG.cginc"
+        ENDCG
+
+
 
         Pass
         {
