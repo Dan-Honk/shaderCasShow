@@ -27,21 +27,23 @@
 
             float3 vDir = normalize(UnityWorldSpaceLightDir(_WorldSpaceCameraPos.xyz));
             float3 NcrossL = cross(i.normal,lDir);
-            
+            float3 VcrossL = cross(vDir,lDir);
+            float NLdotVL = dot(NcrossL,VcrossL);
+            float VdotL = dot(vDir,lDit);
+            col.a *= pow(max(abs(NLdotVL),pow(VdotL,4)),_ProjectionEdge);
+
+            col.a *=pow(min(distance(_WorldSpaceCameraPos.xyz,i.wPos),_ProjectionFadeOut)/_ProjectionFadeout,3);
+            return col;
         }
-
         ENDCG
-
-
 
         Pass
         {
+            Tags{"LightMode" = "ForwardAdd"}
+            ZWrite Off
+            Cull Off
+            Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
-            // make fog work
-            #pragma multi_compile_fog
-
-            #include "UnityCG.cginc"
-
             ENDCG
         }
     }
