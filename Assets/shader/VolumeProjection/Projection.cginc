@@ -29,3 +29,11 @@ v2f vert(a2v v)
     return o;
 }
 
+fixed4 frag(v2f i) : SvV_Target
+{
+    fixed4 col = _ProjectionColor;
+    float NdotL = dot(i.normal,normalize(UnityWorldSpaceLightDir(i.wPos)));
+    col.a = min(_ProjectionColor.a,(pow(1.1 - abs(NdotL),8)));
+    col.a *= pow(min(distance(_WorldSpaceCameraPos.xyz,i.wPos),_ProjectionFadeout)/_ProjectionFadeout,3);
+    return col;
+}
