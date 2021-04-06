@@ -12,7 +12,7 @@
         LOD 100
         CGINCLUDE
         #pragma vertex vert
-        #pragma fragemt lfrag
+        #pragma fragment lfrag
         #include "UnityCG.cginc"
         #include "Projection.cginc"
         uniform float4 _LightColor0;
@@ -33,7 +33,7 @@
             col.a *= pow(max(abs(NLdotVL),pow(VdotL,4)),_ProjectionEdge);
 
             col.a *=pow(min(distance(_WorldSpaceCameraPos.xyz,i.wPos),_ProjectionFadeOut)/_ProjectionFadeout,3);
-            return col;
+            return float4(1,1,1,1);
         }
         ENDCG
 
