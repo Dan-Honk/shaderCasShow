@@ -17,7 +17,7 @@
         #include "Projection.cginc"
         uniform float4 _LightColor0;
         uniform float _ProjectionEdge;
-
+        //uniform float _ProjectionFadeOut;
         fixed4 lfrag(v2f i):SV_Target
         {
             fixed4 col = _LightColor0;
@@ -29,11 +29,10 @@
             float3 NcrossL = cross(i.normal,lDir);
             float3 VcrossL = cross(vDir,lDir);
             float NLdotVL = dot(NcrossL,VcrossL);
-            float VdotL = dot(vDir,lDit);
+            float VdotL = dot(vDir,lDir);
             col.a *= pow(max(abs(NLdotVL),pow(VdotL,4)),_ProjectionEdge);
-
-            col.a *=pow(min(distance(_WorldSpaceCameraPos.xyz,i.wPos),_ProjectionFadeOut)/_ProjectionFadeout,3);
-            return float4(1,1,1,1);
+            col.a *=pow(min(distance(_WorldSpaceCameraPos.xyz,i.wPos),_ProjectionFadeOut)/_ProjectionFadeOut,3);
+            return col;
         }
         ENDCG
 
