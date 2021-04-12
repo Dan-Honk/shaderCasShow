@@ -1,4 +1,4 @@
-﻿Shader "QQ/VP/LightRay"
+﻿Shader "QQ/VP/LightRay111"
 {
 	Properties
 	{
@@ -16,7 +16,7 @@
 		#pragma fragment lfrag
 		#pragma multi_compile_fog
 		#include "UnityCG.cginc"  
-		#include "Projection.cginc"
+		#include "Porjection.cginc"
 		uniform float4 _LightColor0;
 		uniform float _ProjectionEdge;
 		fixed4 lfrag(v2f i) : SV_Target
