@@ -62,13 +62,13 @@
      <None Include="Assets\Shader\遮挡半透\OutLinePostEffect.shader" />
      <None Include="Assets\Shader\扫光效果\DissolveEffectX.shader" />
      <None Include="Assets\Shader\遮挡半透\XRayEffect.shader" />
-     <None Include="Assets\Shader\LightRay.shader" />
+     <None Include="Assets\Shader\VolumeProjectionCase\LightRay.shader" />
      <None Include="Assets\Shader\实例化草\Grass.shader" />
      <None Include="Assets\Shader\VolumeProjection\Projection.cginc" />
      <None Include="Assets\Shader\扫光效果\FlashEffect.shader" />
      <None Include="Assets\Shader\遮挡半透\OcclusionTransparent.shader" />
      <None Include="Assets\Shader\Bubble\BubbleShader.shader" />
-     <None Include="Assets\Shader\Porjection.cginc" />
+     <None Include="Assets\Shader\VolumeProjectionCase\Porjection.cginc" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/unityProject/shaderCasShow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
